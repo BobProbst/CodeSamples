@@ -1,39 +1,26 @@
-#  https://lorenzod8n.wordpress.com/2007/05/27/pygame-tutorial-2-drawing-lines/
+#  https://lorenzod8n.wordpress.com/2007/05/30/pygame-tutorial-3-mouse-events/
 
 import math
 import pygame
 
-hieght = input('Set hieght: ')
-width = input('Set width: ')
- 
-screen = pygame.display.set_mode((width, hieght))
+screen = pygame.display.set_mode((640, 400))
+ccolor = (134,0,200)
 
-y = 0
-x = 0
-dir = 1
-xdir = 1
+x = y = 0
 running = 1
-barheight = 124
-
-barcolor = []
-for i in range(1, 63):
-  barcolor.append((0, 0, i*4))
-for i in range(1, 63):
-  barcolor.append((0, 0, 255 - i*4))
+pygame.mouse.set_visible(False)
 
 while running:  
   event = pygame.event.poll()
-  
+ 
   if event.type == pygame.QUIT:
-    running = 0    
-            
-  screen.fill([0,0,0])
-  
-  for i in range(0, barheight):
-    pygame.draw.aaline(screen, barcolor[i], (0, y+i), (width-1, y+i))
+    running = 0
+  elif event.type == pygame.MOUSEMOTION:
+    x, y = event.pos
 
-  y += dir
-  if y + barheight > hieght-1 or y < 0:
-    dir *= -1   
+  screen.fill([0,0,0])      
+  pygame.draw.circle(screen,ccolor,[x,y],20)
+  pygame.draw.line(screen,ccolor,(x,0),(x,399))      
+  pygame.draw.line(screen,ccolor,(0,y),(639,y))      
   
   pygame.display.flip()
